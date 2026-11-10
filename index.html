@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Chama Tracker</title>
+</head>
+<body>
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">GROUP SAVINGS MANAGEMENT</p>
+            <h1>Chama Tracker</h1>
+            <p class="subtitle">Track members, contributions and monthly progress.</p>
+        </div>
+        
+        <label for="" class="month-control">
+            <span>Viewing month</span>
+            <input type="month" id="monthPicker" value="2026-11">
+        </label>
+
+        <main class="container">
+            <section class="summary-grid" aria-label="Chama summary">
+                <article class="summary-card">
+                    <p>Total in pot</p>
+                    <h2 id="potTotal">Ksh 0</h2>
+                    <span>All recorded contributions</span>
+                </article>
+
+                <article class="summary-card">
+                    <p>Fully paid this month</p>
+                    <h2 id="paidCount">0 / 12</h2>
+                    <span>Members who met their target</span>
+                </article>
+                <article class="summary-card">
+                    <p>Outstanding this month</p>
+                    <h2 id="outstandingTotal">Ksh 0</h2>
+                    <span>Remaining monthly contributions</span>
+                </article>
+            </section>
+
+            <section class="workspace">
+                <section class="panel members-panel">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">MEMBERSHIP</p>
+                            <H2>Members</H2>
+                        </div>
+                        <span id="memberCount" class="count-pill">0 members</span>
+                    </div>
+
+                    <div class="toolbar">
+                        <input 
+                            type="search"
+                            id="searchInput"
+                            placeholder="Search by name or phone..."
+                            aria-label="Search members"
+                        >
+                        <select id="sortSelect" aria-label="Sort members">
+                            <option value="name">Sort: Name</option>
+                            <option value="total">Sort: Total contributed</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-row" id="filterButtons">
+                        <button type="button" class="filter-btn-active" data-status="All">All</button>
+                        <button type="button" class="filter-btn" data-status="Paid">Paid</button>
+                        <button type="button" class="filter-btn" data-status="Partial">Partial</button>
+                        <button type="button" class="filter-btn" data-status="Unpaid">Unpaid</button>
+                    </div>
+
+                    <p id="memberListMessage" class="muted" aria-live="polite"></p>
+                    <div id="memberList" class="member-grid"></div>
+
+                </section>
+
+                <aside class="panel add-member-panel">
+                    <p class="eyebrow">GET STARTED</p>
+                    <h2>Add a member</h2>
+                    <p class="muted">Enter the member's details and monthly contribution target.</p>
+
+                    <form id="addMemberForm" novalidate>
+                        <label>
+                            Full name
+                            <input type="text" id="memberName" placeholder="e.g. Jane Wanjiku" required> 
+                        </label>
+                        <label >
+                            Phone Number
+                            <input type="tel" id="memberPhone" placeholder="e.g. 0712345678" required>
+                        </label>
+                        <label>
+                            Monthly Target (Ksh)
+                            <input type="number" id="monthlyTarget" min="1" step="1" placeholder="2000" required>
+                        </label>
+                        <p id="memberFormError" class="form-error" aria-live="polite"></p>
+                        <button type="submit" class="primary-btn">Add member</button>
+                    </form>
+                </aside>
+            </section>
+        </main>
+
+        <div id="panelBackdrop" class="panel-backdrop"></div>
+        <aside id="historyPanel" class="history-panel" aria-hidden="true">
+            <div class="history-header">
+                <div>
+                    <p class="eyebrow">Member Account</p>
+                    <h2 id="historyMemberName">Contribution history</h2>
+                    <p id="historyMemberPhone" class="muted"></p>
+                </div>
+                <button type="button" id="closeHistory" class="icon-btn" aria-label="Close history">x</button>
+            </div>
+
+            <div class="history-summary">
+                <span>Total contributed</span>
+                <strong id="historyTotal">Ksh 0</strong>
+            </div>
+
+            <section class="history-section">
+                <h3>Record a contribution</h3>
+                <form id="contributionForm" novalidate>
+                    <label>
+                        Amount (Ksh)
+                        <input type="number" id="contributionAmount" min="1" step="1" required>
+                    </label>
+
+                    <label>
+                        Contribution month
+                        <input type="month" id="contributionMonth" required>
+                    </label>
+
+                    <label>
+                        M-Pesa confirmation code
+                        <input type="text" id="mpesaCode" placeholder="e.g. QWE123ABC" required>
+                    </label>
+
+                    <p id="contributionFormError" class="form-error" aria-live="polite"></p>
+                    <button type="submit" class="primary-btn">Save Contribution</button>
+                </form>
+            </section>
+
+            <section class="history-section">
+                <h3>Previous contributions</h3>
+                <div id="historyList" class="history-list"></div>
+            </section>
+        </aside>
+    </header>
+    
+</body>
+</html>
